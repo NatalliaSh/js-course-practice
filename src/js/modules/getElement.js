@@ -1,18 +1,8 @@
-function getElement(
-  tag,
-  className,
-  innerText,
-  nameOfAtribute,
-  valueOfAtribute,
-) {
+function getElement(tag, attributes) {
   const el = document.createElement(tag);
-  if (className) {
-    el.classList.add(className);
-  }
-  el.innerText = innerText || '';
-  if (nameOfAtribute && valueOfAtribute) {
-    el[nameOfAtribute] = valueOfAtribute;
-  }
+  Object.keys(attributes).forEach(
+    (attribute) => (el[attribute] = attributes[attribute]),
+  );
 
   return el;
 }
