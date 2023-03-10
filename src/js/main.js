@@ -26,9 +26,9 @@ container.addEventListener('click', ({ target }) => {
   }
 
   if (action === 'edit') {
-    container.appendChild(getEditForm());
+    const child = getEditForm();
+    container.appendChild(child);
     const form = document.querySelector('#editForm');
-    form.hidden = false;
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const indexOfEditElement = items.findIndex((el) => el.id === id);
@@ -37,11 +37,12 @@ container.addEventListener('click', ({ target }) => {
       const price =
         e.target.elements.price.value || items[indexOfEditElement].data.price;
 
+      container.removeChild(child);
+
       request(`objects/${id}`, 'PATCH', {
         name,
         data: { price },
       }).then((res) => {
-        form.hidden = true;
         if (!(res instanceof Error)) {
           console.log(res);
           items[indexOfEditElement].name = name;
