@@ -34,8 +34,14 @@ container.addEventListener('click', ({ target }) => {
       const indexOfEditElement = items.findIndex((el) => el.id === id);
       const name =
         e.target.elements.name.value || items[indexOfEditElement].name;
-      const price =
-        e.target.elements.price.value || items[indexOfEditElement].data.price;
+      let price;
+      try {
+        price =
+          e.target.elements.price.value || items[indexOfEditElement].data.price;
+      } catch (error) {
+        console.error(error);
+        price = 'Empty';
+      }
 
       container.removeChild(child);
 
