@@ -1,3 +1,71 @@
-body * {
-  outline: 1px solid lightgrey;
+.container {
+  max-width: 80vw;
+  margin: auto;
+  border: 1px solid lightgray;
+  text-align: center;
+
+  &__row,
+  &__row--header {
+    display: flex;
+  }
+
+  &__row--header {
+    justify-content: space-between;
+    border: 2px solid black;
+    margin-top: 20px;
+
+    .container__column {
+      font-weight: bold;
+      font-size: 24px;
+      padding: 20px;
+    }
+  }
+  &__column {
+    padding: 5px;
+    border: 1px solid black;
+    width: 33%;
+  }
+
+  &__items {
+    max-height: 200px;
+    overflow-y: auto;
+
+    > div:nth-child(2n + 1) {
+      background-color: lightgray;
+    }
+  }
+}
+
+.add-item {
+  margin: 20px 50px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  row-gap: 10px;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+
+  width: 500px;
+  //height: 400px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-left: -250px;
+  z-index: 1;
+  background-color: aqua;
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  button {
+    margin: 0 auto 20px auto;
+    width: 200px;
+  }
 }
