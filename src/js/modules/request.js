@@ -9,7 +9,7 @@ function request(url, method, body) {
     if (resp.status === 200) {
       return resp.json();
     }
-    return new Error('smth went wrong');
+    return new Error('smth went wrong, response status is ' + resp.status);
   });
 }
 

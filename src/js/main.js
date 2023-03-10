@@ -12,9 +12,17 @@ container.addEventListener('click', ({ target }) => {
   } = target;
 
   if (action === 'delete') {
-    target.parentElement.parentElement.remove();
-    items = items.filter((item) => item.id !== id); //delete from array items
-    request(`objects/${id}`, 'DELETE').then((res) => console.log(res));
+    request(`objects/${id}`, 'DELETE').then((res) => {
+      if (!(res instanceof Error)) {
+        target.parentElement.parentElement.remove();
+        items = items.filter((item) => item.id !== id); //delete from array items
+        console.log(res);
+      } else {
+        console.log(
+          res + ". Probably you don't have rights to delete this item",
+        );
+      }
+    });
   }
 
   if (action === 'edit') {
@@ -28,15 +36,22 @@ container.addEventListener('click', ({ target }) => {
         e.target.elements.name.value || items[indexOfEditElement].name;
       const price =
         e.target.elements.price.value || items[indexOfEditElement].data.price;
+
       request(`objects/${id}`, 'PATCH', {
         name,
         data: { price },
-      }).then((resp) => {
-        console.log(resp);
+      }).then((res) => {
         form.hidden = true;
-        items[indexOfEditElement].name = name;
-        items[indexOfEditElement].data.price = price;
-        renderItems(items);
+        if (!(res instanceof Error)) {
+          console.log(res);
+          items[indexOfEditElement].name = name;
+          items[indexOfEditElement].data.price = price;
+          renderItems(items);
+        } else {
+          console.log(
+            res + ". Probably you don't have rights to edite this item",
+          );
+        }
       });
     });
   }
